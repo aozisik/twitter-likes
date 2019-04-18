@@ -2,8 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Follower;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Domain\Twitter\Actions\GetFollowers;
@@ -20,13 +18,6 @@ class TrackConversions extends Command
         DB::table('own_followers')->delete();
 
         while ($followers = $cursor->next()) {
-            Follower::where('interested', true)
-                ->whereIn('twitter_id', $followers->ids)
-                ->update([
-                    'converted_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-
             DB::table('own_followers')->insert(
                 collect($followers->ids)
                     ->map(function ($twitterId) {
@@ -37,5 +28,12 @@ class TrackConversions extends Command
                     ->toArray()
             );
         }
+
+        DB::table('followers')
+            ->join('own_followers', 'followers.twitter_id', '=', 'own_followers.twitter_id')
+            ->update([
+                'converted_at' => now(),
+                'updated_at' => now(),
+            ]);
     }
 }
