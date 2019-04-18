@@ -51,6 +51,9 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('targets') }}"> <i class="fa fa-bullseye"></i> Targets</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('config') }}"> <i class="fa fa-wrench"></i> Config</a>
                             </li>
                             <li class="nav-item dropdown">

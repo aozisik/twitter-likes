@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Domain\Twitter\Actions\VerifyAccess;
 
 class ConfigController extends Controller
 {
     public function index()
     {
-        $configs = Config::get()->keyBy('name');
+        $configs = Config::fetch();
         return view('pages.config.index')->with(compact('configs'));
     }
 
@@ -20,6 +21,10 @@ class ConfigController extends Controller
             'twitter_access_token',
             'twitter_access_token_secret',
         ];
+
+        if (!resolve(VerifyAccess::class)(request()->only($fields))) {
+            return back()->withError('Invalid Twitter credentials. / Twitter API Error');
+        }
 
         foreach ($fields as $field) {
             $config = Config::firstOrNew(['name' => $field]);
