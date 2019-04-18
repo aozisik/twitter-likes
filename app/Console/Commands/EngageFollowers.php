@@ -61,7 +61,13 @@ class EngageFollowers extends Command
             return false;
         }
 
-        $follower->engage($tweet->id);
+        try {
+            $follower->engage($tweet->id);
+        } catch (\Exception $e) {
+            $follower->markAsNotInterested('Can\'t favorite tweet');
+            return false;
+        }
+
         return true;
     }
 
