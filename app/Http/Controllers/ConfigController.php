@@ -13,8 +13,22 @@ class ConfigController extends Controller
         return view('pages.config.index')->with(compact('configs'));
     }
 
+    private function storeFields(array $fields)
+    {
+        foreach ($fields as $field) {
+            $config = Config::firstOrNew(['name' => $field]);
+            $config->value = request($field);
+            $config->save();
+        }
+        return back()->withSuccess('Config has been updated.');
+    }
+
     public function store()
     {
+        if (request('tuning')) {
+            return $this->storeTuning();
+        }
+
         $fields = [
             'twitter_consumer_key',
             'twitter_consumer_secret',
@@ -26,12 +40,17 @@ class ConfigController extends Controller
             return back()->withError('Invalid Twitter credentials. / Twitter API Error');
         }
 
-        foreach ($fields as $field) {
-            $config = Config::firstOrNew(['name' => $field]);
-            $config->value = request($field);
-            $config->save();
-        }
+        return $this->storeFields($fields);
+    }
 
-        return back()->withSuccess('Config has been updated.');
+    private function storeTuning()
+    {
+        $fields = [
+            'max_likes_per_day',
+            'last_tweet_max_days_ago',
+            'notweet_days_to_lose_interest',
+            'recheck_tweets_days',
+        ];
+        return $this->storeFields($fields);
     }
 }

@@ -64,8 +64,8 @@
                         </div>
                         <div class="form-group">
                             <label>notweet_days_to_lose_interest</label>
-                            <input type="number" name="notweet_days_to_lose_interest" class="form-control" value="{{ $configs->get('notweet_days_to_lose_interest') ?? 7 }}" />
-                            <div class="help-block mt-1 text-muted">Back off and try later if user's last tweet is older than this many days.</div>
+                            <input type="number" name="notweet_days_to_lose_interest" class="form-control" value="{{ $configs->get('notweet_days_to_lose_interest') ?? 30 }}" />
+                            <div class="help-block mt-1 text-muted">Stop tracking the user if their last tweet is older than this many days.</div>
                         </div>
                         <div class="form-group">
                             <label>recheck_tweets_days</label>

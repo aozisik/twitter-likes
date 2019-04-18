@@ -94,7 +94,7 @@ class EngageFollowers extends Command
             return false;
         }
 
-        $loseInterestIn = Config::fetch('notweet_days_to_lose_interest', 7);
+        $loseInterestIn = Config::fetch('notweet_days_to_lose_interest', 30);
 
         // Follower created 7 days ago and still has a stale tweet...
         if ($follower->created_at->diffInDays() >= $loseInterestIn) {
