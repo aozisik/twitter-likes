@@ -24,7 +24,7 @@ class CursoredResponse
             return;
         }
         $waitSeconds = 60 / $this->maxRequestsPerMinute;
-        sleep($waitSeconds);
+        sleep($waitSeconds + 1);
     }
 
     public function next()

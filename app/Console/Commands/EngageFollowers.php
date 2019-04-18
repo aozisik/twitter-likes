@@ -36,7 +36,7 @@ class EngageFollowers extends Command
         while ($account = $this->nextAccount()) {
             if ($this->engagedCount === $perCall) {
                 // Stop now...
-                break;
+                return;
             }
             if ($this->engageFollower($account)) {
                 $this->engagedCount++;
