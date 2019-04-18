@@ -58,6 +58,11 @@
                             <input type="number" name="max_likes_per_day" class="form-control" value="{{ $configs->get('max_likes_per_day') ?? 1000 }}" />
                         </div>
                         <div class="form-group">
+                            <label>max_followers</label>
+                            <input type="number" name="max_followers" class="form-control" value="{{ $configs->get('max_followers') ?? 500 }}" />
+                            <div class="help-block mt-1 text-muted">If user has more than this many followers, don't engage.</div>
+                        </div>                        
+                        <div class="form-group">
                             <label>last_tweet_max_days_ago</label>
                             <input type="number" name="last_tweet_max_days_ago" class="form-control" value="{{ $configs->get('last_tweet_max_days_ago') ?? 3 }}" />
                             <div class="help-block mt-1 text-muted">Back off and try later if user's last tweet is older than this many days.</div>

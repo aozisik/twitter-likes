@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Config;
 use App\Target;
 use App\Follower;
 use Carbon\Carbon;
@@ -82,11 +83,12 @@ class ProcessFollowers implements ShouldQueue
     private function checkInterest($follower)
     {
         $reason = null;
+        $maxFollowers = Config::fetch('max_followers', 500);
 
         if ($follower->protected) {
             $reason = 'Private account';
-        } elseif ($follower->followers_count > 500) {
-            $reason = 'Has more than 500 followers';
+        } elseif ($follower->followers_count > $maxFollowers) {
+            $reason = 'Has more than ' . $maxFollowers . ' followers';
         } elseif ($this->isOwnFollower($follower)) {
             $reason = 'Is already a follower';
         }
