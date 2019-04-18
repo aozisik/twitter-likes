@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
@@ -13,8 +13,27 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="text-center">
+                        <a href="{{ url('targets') }}" class="d-inline-block text-center border rounded bg-secondary text-white p-4 mr-4 mb-4" style="width:12rem;">    
+                            <h1>{{ $targets }}</h1>
+                            Target {{ str_plural('Account', $targets) }}
+                        </a>
 
-                    You are logged in!
+                        <a href="{{ url('followers') }}" class="d-inline-block text-center border rounded bg-info text-white p-4 mr-4 mb-4" style="width:12rem;">    
+                            <h1>{{ $followers }}</h1>
+                            Potential {{ str_plural('Follower', $followers) }}
+                        </a>
+                        <br>
+                        <a href="{{ url('followers?filter=converted') }}" class="d-inline-block text-center border rounded bg-primary text-white p-4 mr-4 mb-4" style="width:12rem;">    
+                            <h1>{{ $engages }}</h1>
+                            Engages
+                        </a>
+                        
+                        <a href="{{ url('followers?filter=converted') }}" class="d-inline-block text-center border rounded bg-success text-white p-4 mr-4 mb-4" style="width:12rem;">    
+                            <h1>{{ $conversions }}</h1>
+                            Conversions
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

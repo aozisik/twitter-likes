@@ -7,12 +7,18 @@ use App\Domain\Twitter\CursoredResponse;
 
 class GetFollowers
 {
-    public function __invoke($screenName)
+    /**
+     * Pass null to screenName to get own followers
+     */
+    public function __invoke($screenName = null)
     {
         $request = new Request(
             'get',
-            'followers/list',
-            ['screen_name' => $screenName]
+            'followers/ids',
+            [
+                'screen_name' => $screenName,
+                'count' => 5000,
+            ]
         );
 
         return new CursoredResponse($request);

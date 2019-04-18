@@ -8,8 +8,12 @@ class Config extends Model
 {
     protected $guarded = [];
 
-    public static function fetch()
+    public static function fetch($name = null, $default = null)
     {
-        return self::get()->pluck('value', 'name');
+        if (is_null($name)) {
+            return self::get()->pluck('value', 'name');
+        }
+        return self::where('name', $name)
+            ->first()->value ?? $default;
     }
 }

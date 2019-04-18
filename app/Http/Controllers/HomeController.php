@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Twitter\Actions\GetFollowers;
+use App\Target;
+use App\Follower;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $followersCursor = resolve(GetFollowers::class)('_aozisik');
+        $targets = Target::count();
+        $followers = Follower::where('interested', true)->count();
 
-        $users = [];
-        while ($followers = $followersCursor->next()) {
-            $users = array_merge($users, $followers->users);
-        }
+        $engages = Follower::whereNotNull('engaged_at')
+            ->count();
 
-        return view('home');
+        $conversions = Follower::whereNotNull('converted_at')
+            ->count();
+
+        return view('home')->with(compact(
+            'targets',
+            'followers',
+            'engages',
+            'conversions'
+        ));
     }
 }

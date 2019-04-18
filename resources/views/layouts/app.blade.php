@@ -51,6 +51,9 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ url('followers') }}"> <i class="fa fa-users"></i> Followers</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('targets') }}"> <i class="fa fa-bullseye"></i> Targets</a>
                             </li>
                             <li class="nav-item">

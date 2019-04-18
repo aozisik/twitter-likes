@@ -19,7 +19,7 @@ class Request
         $parameters = array_merge($this->parameters, $parameters);
         $response = $this->client->{$this->method}($this->endpoint, $parameters);
 
-        if (property_exists($response, 'errors')) {
+        if (!is_array($response) && property_exists($response, 'errors')) {
             Log::error($response->errors);
             throw new Exception('Error fulfilling request!');
         }

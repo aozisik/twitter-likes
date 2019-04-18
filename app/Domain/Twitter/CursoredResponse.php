@@ -3,18 +3,37 @@ namespace App\Domain\Twitter;
 
 class CursoredResponse
 {
-    private $nextCursor = -1;
+    private $nextCursor;
+    private $maxRequestsPerMinute;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, $nextCursor = -1, $maxRequestsPerMinute = 15)
     {
         $this->request = $request;
+        $this->nextCursor = $nextCursor;
+        $this->maxRequestsPerMinute = $maxRequestsPerMinute;
+    }
+
+    public function hasMore()
+    {
+        return $this->nextCursor !== 0;
+    }
+
+    private function throttle()
+    {
+        if (!$this->maxRequestsPerMinute) {
+            return;
+        }
+        $waitSeconds = 60 / $this->maxRequestsPerMinute;
+        sleep($waitSeconds);
     }
 
     public function next()
     {
-        if ($this->nextCursor === 0) {
+        if (!$this->hasMore()) {
             return null;
         }
+
+        $this->throttle();
 
         $response = $this->request->make([
             'cursor' => $this->nextCursor

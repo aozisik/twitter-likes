@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Target;
+use App\Follower;
+use App\Jobs\PullFollowers;
 use Illuminate\Http\Request;
 use App\Domain\Twitter\Actions\GetAccount;
 
@@ -32,13 +34,17 @@ class TargetsController extends Controller
             'followers_count' => $account->followers_count,
         ];
 
-        Target::create($data);
+        $target = Target::create($data);
+        dispatch(new PullFollowers($target));
+
         return back()->withSuccess('Target added!');
     }
 
     public function destroy(Target $target)
     {
         $target->delete();
+        Follower::where('target', $target->screen_name)->delete();
+
         return back()->withSuccess('Target deleted.');
     }
 }
