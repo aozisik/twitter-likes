@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use Illuminate\Support\Facades\DB;
 use App\Domain\Twitter\Actions\VerifyAccess;
 
 class ConfigController extends Controller
@@ -40,6 +41,7 @@ class ConfigController extends Controller
             return back()->withError('Invalid Twitter credentials. / Twitter API Error');
         }
 
+        DB::table('own_followers')->delete();
         return $this->storeFields($fields);
     }
 
