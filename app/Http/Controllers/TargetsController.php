@@ -28,7 +28,8 @@ class TargetsController extends Controller
         }
 
         $data = $request->only(['screen_name']) + [
-            'avatar_url' => $account->profile_image_url
+            'avatar_url' => $account->profile_image_url,
+            'followers_count' => $account->followers_count,
         ];
 
         Target::create($data);

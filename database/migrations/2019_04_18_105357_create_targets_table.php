@@ -12,6 +12,8 @@ class CreateTargetsTable extends Migration
             $table->bigIncrements('id');
             $table->string('screen_name')->unique();
             $table->string('avatar_url');
+            $table->bigInteger('followers_count')->unsigned();
+
             $table->timestamps();
         });
     }

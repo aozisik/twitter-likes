@@ -30,8 +30,11 @@
                                 </button>
                             </form>
                             </div>
-                            <img src="{{ $target->avatar_url }}" alt="" class="rounded-circle mr-2" width="35" />
-                            {{ $target->screen_name }}
+                            <img src="{{ $target->avatar_url }}" alt="" class="d-inline-block rounded-circle float-left  mr-3" width="35" />
+                            <div class="d-inline-block" style="line-height:1.2rem">
+                                {{ $target->screen_name }} <br>
+                                <small class="text-muted">Followers: {{ $target->followers_count }}</small>
+                            </div>
                         </div>
                     @empty
                     <div class="text-center my-3 text-muted">No targets added.</div>
