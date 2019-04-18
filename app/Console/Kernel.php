@@ -2,14 +2,16 @@
 
 namespace App\Console;
 
+use App\Console\Commands\PullFollowers;
 use App\Console\Commands\EngageFollowers;
-use Illuminate\Console\Scheduling\Schedule;
 use App\Console\Commands\TrackConversions;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
+        PullFollowers::class,
         EngageFollowers::class,
         TrackConversions::class,
     ];
@@ -21,6 +23,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('followers:engage')
             ->everyFiveMinutes();
+
+        $schedule->command('followers:pull')
+            ->weekly();
     }
 
     /**
