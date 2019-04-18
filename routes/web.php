@@ -27,4 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('config', 'ConfigController@index');
     Route::post('config', 'ConfigController@store');
+
+    Route::resource('targets', 'TargetsController');
 });

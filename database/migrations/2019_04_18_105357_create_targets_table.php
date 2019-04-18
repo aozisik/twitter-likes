@@ -11,6 +11,7 @@ class CreateTargetsTable extends Migration
         Schema::create('targets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('screen_name')->unique();
+            $table->string('avatar_url');
             $table->timestamps();
         });
     }
