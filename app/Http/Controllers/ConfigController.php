@@ -49,6 +49,7 @@ class ConfigController extends Controller
     {
         $fields = [
             'max_likes_per_day',
+            'max_followers',
             'last_tweet_max_days_ago',
             'notweet_days_to_lose_interest',
             'recheck_tweets_days',
