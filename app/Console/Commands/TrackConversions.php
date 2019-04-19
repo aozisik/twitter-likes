@@ -30,6 +30,9 @@ class TrackConversions extends Command
         }
 
         DB::table('followers')
+            ->where('interested', 1)
+            ->whereNotNull('engaged_at')
+            ->whereNull('converted_at')
             ->join('own_followers', 'followers.twitter_id', '=', 'own_followers.twitter_id')
             ->update([
                 'converted_at' => now(),
