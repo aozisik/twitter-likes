@@ -11,6 +11,7 @@ class VerifyAccess
     {
         try {
             $this->verifyCredentials($credentials);
+
             return true;
         } catch (Exception $e) {
             return false;

@@ -21,8 +21,8 @@ class GetLastTweet
 
         $response = $request->make();
 
-        if (!is_array($response) || !count($response)) {
-            return null;
+        if (! is_array($response) || ! count($response)) {
+            return;
         }
 
         return $response[0];
