@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\Twitter\Actions\LikeTweet;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Follower extends Model
 {
@@ -13,6 +14,11 @@ class Follower extends Model
         'converted_at',
         'back_off_until',
     ];
+
+    public function engagements()
+    {
+        return $this->hasMany(Engagement::class);
+    }
 
     public function scopeEngageable($query)
     {
@@ -45,10 +51,29 @@ class Follower extends Model
         $this->save();
     }
 
-    public function engage($tweetId)
+    public function engage($tweet)
     {
-        $like = resolve(LikeTweet::class)($tweetId);
+        try {
+            resolve(LikeTweet::class)($tweet->id);
+        } catch (HttpException $e) {
+            // If tweet is not already liked.
+            if ($e->getStatusCode() !== 403) {
+                throw $e;
+            }
+        }
+
         $this->engaged_at = Carbon::now();
         $this->save();
+
+        $this->engagements()->create([
+            'follower_id' => $this->id,
+            'tweet_id' => $tweet->id,
+            'tweet_url' => 'https://twitter.com/' . $this->screen_name . '/status/' . $tweet->id,
+        ]);
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return str_replace('http://', 'https://', $this->attributes['avatar_url']);
     }
 }

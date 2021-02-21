@@ -11,6 +11,7 @@ class ConfigController extends Controller
     public function index()
     {
         $configs = Config::fetch();
+
         return view('pages.config.index')->with(compact('configs'));
     }
 
@@ -21,6 +22,7 @@ class ConfigController extends Controller
             $config->value = request($field);
             $config->save();
         }
+
         return back()->withSuccess('Config has been updated.');
     }
 
@@ -37,11 +39,12 @@ class ConfigController extends Controller
             'twitter_access_token_secret',
         ];
 
-        if (!resolve(VerifyAccess::class)(request()->only($fields))) {
+        if (! resolve(VerifyAccess::class)(request()->only($fields))) {
             return back()->withError('Invalid Twitter credentials. / Twitter API Error');
         }
 
         DB::table('own_followers')->delete();
+
         return $this->storeFields($fields);
     }
 
@@ -54,6 +57,7 @@ class ConfigController extends Controller
             'notweet_days_to_lose_interest',
             'recheck_tweets_days',
         ];
+
         return $this->storeFields($fields);
     }
 }

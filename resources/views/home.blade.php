@@ -24,9 +24,9 @@
                             Potential {{ str_plural('Follower', $followers) }}
                         </a>
                         <br>
-                        <a href="{{ url('followers?filter=converted') }}" class="d-inline-block text-center border rounded bg-primary text-white p-4 mr-4 mb-4" style="width:12rem;">    
-                            <h1>{{ $engages }}</h1>
-                            Engages
+                        <a href="{{ url('followers?filter=engaged') }}" class="d-inline-block text-center border rounded bg-primary text-white p-4 mr-4 mb-4" style="width:12rem;">    
+                            <h1>{{ $engaged }}</h1>
+                            Engaged
                         </a>
                         
                         <a href="{{ url('followers?filter=converted') }}" class="d-inline-block text-center border rounded bg-success text-white p-4 mr-4 mb-4" style="width:12rem;">    

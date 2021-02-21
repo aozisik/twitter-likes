@@ -22,7 +22,7 @@ class TrackConversions extends Command
                 collect($followers->ids)
                     ->map(function ($twitterId) {
                         return [
-                            'twitter_id' => $twitterId
+                            'twitter_id' => $twitterId,
                         ];
                     })
                     ->toArray()

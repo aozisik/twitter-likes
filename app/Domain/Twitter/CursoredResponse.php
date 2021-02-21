@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domain\Twitter;
 
 class CursoredResponse
@@ -20,7 +21,7 @@ class CursoredResponse
 
     private function throttle()
     {
-        if (!$this->maxRequestsPerMinute) {
+        if (! $this->maxRequestsPerMinute) {
             return;
         }
         $waitSeconds = 60 / $this->maxRequestsPerMinute;
@@ -29,17 +30,18 @@ class CursoredResponse
 
     public function next()
     {
-        if (!$this->hasMore()) {
-            return null;
+        if (! $this->hasMore()) {
+            return;
         }
 
         $this->throttle();
 
         $response = $this->request->make([
-            'cursor' => $this->nextCursor
+            'cursor' => $this->nextCursor,
         ]);
 
         $this->nextCursor = $response->next_cursor;
+
         return $response;
     }
 }

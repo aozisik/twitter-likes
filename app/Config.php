@@ -13,6 +13,7 @@ class Config extends Model
         if (is_null($name)) {
             return self::get()->pluck('value', 'name');
         }
+
         return self::where('name', $name)
             ->first()->value ?? $default;
     }

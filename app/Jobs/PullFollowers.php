@@ -84,11 +84,12 @@ class PullFollowers implements ShouldQueue
 
         // Compare followers count
         $account = resolve(GetAccount::class)($this->target->screen_name);
+
         return $account->followers_count === $this->target->followers_count;
     }
 
     private function notPulledBefore()
     {
-        return !Follower::where('target', $this->target->screen_name)->exists();
+        return ! Follower::where('target', $this->target->screen_name)->exists();
     }
 }
