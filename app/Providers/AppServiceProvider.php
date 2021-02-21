@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('twitterClient', function () {
             $config = Config::fetch();
+
             return new TwitterOAuth(
                 $config->get('twitter_consumer_key'),
                 $config->get('twitter_consumer_secret'),

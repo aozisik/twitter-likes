@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Target;
 use App\Follower;
+use App\Engagement;
 
 class HomeController extends Controller
 {
@@ -12,8 +13,7 @@ class HomeController extends Controller
         $targets = Target::count();
         $followers = Follower::where('interested', true)->count();
 
-        $engages = Follower::whereNotNull('engaged_at')
-            ->count();
+        $engaged = Engagement::count();
 
         $conversions = Follower::whereNotNull('converted_at')
             ->count();
@@ -21,7 +21,7 @@ class HomeController extends Controller
         return view('home')->with(compact(
             'targets',
             'followers',
-            'engages',
+            'engaged',
             'conversions'
         ));
     }

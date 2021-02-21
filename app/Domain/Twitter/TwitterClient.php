@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domain\Twitter;
 
 use App\Config;

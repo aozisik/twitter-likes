@@ -8,7 +8,17 @@ class FollowersController extends Controller
 {
     public function index()
     {
-        $followers = Follower::orderBy('updated_at', 'desc')->paginate(30);
+        $query = Follower::orderBy('updated_at', 'desc');
+
+        if (request('filter') === 'engaged') {
+            $query->whereNotNull('converted_at');
+        }
+
+        if (request('filter') === 'converted') {
+            $query->whereNotNull('converted_at');
+        }
+
+        $followers = $query->paginate(30);
 
         return view('pages.followers.index')->with(compact('followers'));
     }

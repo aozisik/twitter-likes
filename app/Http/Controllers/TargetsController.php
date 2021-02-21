@@ -14,13 +14,14 @@ class TargetsController extends Controller
     public function index()
     {
         $targets = Target::get();
+
         return view('pages.targets.index')->with(compact('targets'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'screen_name' => 'required|unique:targets'
+            'screen_name' => 'required|unique:targets',
         ]);
 
         try {

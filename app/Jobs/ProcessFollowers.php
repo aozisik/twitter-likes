@@ -52,7 +52,7 @@ class ProcessFollowers implements ShouldQueue
             // Total followers in DB are greater than the lookup limit.
             // Let's do another run and process the rest
             dispatch(
-                (new ProcessFollowers($this->target))->delay(now()->addMinutes(5))
+                (new self($this->target))->delay(now()->addMinutes(5))
             );
         }
     }

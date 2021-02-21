@@ -12,7 +12,7 @@ class LikeTweet
             'post',
             'favorites/create',
             [
-                'id' => $tweetId
+                'id' => $tweetId,
             ]
         );
 

@@ -8,7 +8,7 @@ use App\Domain\Twitter\CursoredResponse;
 class GetFollowers
 {
     /**
-     * Pass null to screenName to get own followers
+     * Pass null to screenName to get own followers.
      */
     public function __invoke($screenName = null)
     {
